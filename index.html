@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pakar Diagnosa Kehamilan - Certainty Factor</title>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <i class="fa-solid fa-heart-pulse logo-icon"></i>
+                <div>
+                    <h1>Sistem Pakar Indikasi Gejala Awal Kehamilan</h1>
+                    <p>Metode Certainty Factor (CF) berdasarkan Nilai Ketetapan Pakar Medis</p>
+                </div>
+            </div>
+        </header>
+
+        <div id="infoPageView" class="card info-card">
+            <h2><i class="fa-solid fa-circle-info"></i> Informasi & Edukasi Kesehatan Kehamilan</h2>
+            <p>
+                <strong>Kehamilan</strong> adalah proses biologis kompleks di mana embrio atau janin berkembang di dalam rahim seorang wanita setelah terjadinya pembuahan. Pemahaman mengenai tanda-tanda awal dan kesehatan masa gestasi sangat penting untuk memastikan ibu dan janin tetap sehat.
+            </p>
+            
+            <h3 style="margin-top: 15px; font-size: 1rem; color: #9d174d;"><i class="fa-solid fa-stethoscope"></i> Klasifikasi Tanda Kehamilan:</h3>
+            <ul class="info-list">
+                <li><strong>Gejala Subjektif / Tidak Pasti:</strong> Perubahan fisik yang dirasakan oleh ibu seperti keterlambatan menstruasi, mual dan muntah (morning sickness) akibat lonjakan hormon hCG, kelelahan berlebih, sensitivitas terhadap bau, serta perubahan suasana hati (mood swings).</li>
+                <li><strong>Gejala Objektif / Pasti:</strong> Temuan medis yang dikonfirmasi oleh tenaga kesehatan, seperti terdengarnya detak jantung janin (DJJ), terlihatnya kantung kehamilan atau janin melalui pemeriksaan USG, serta terabanya bagian tubuh janin.</li>
+            </ul>
+
+            <h3 style="margin-top: 15px; font-size: 1rem; color: #9d174d;"><i class="fa-solid fa-apple-whole"></i> Tips Edukasi & Perawatan Awal Kehamilan:</h3>
+            <ul class="info-list">
+                <li><strong>Konsumsi Asam Folat & Nutrisi Seimbang:</strong> Sangat penting pada trimester pertama untuk mendukung perkembangan tabung saraf janin.</li>
+                <li><strong>Hindari Zat Berbahaya:</strong> Menghindari rokok, kafein berlebihan, minuman beralkohol, serta obat-obatan tanpa resep dokter.</li>
+                <li><strong>Istirahat Cukup & Kelola Stres:</strong> Menjaga kondisi fisik dan mental agar tubuh dapat beradaptasi dengan perubahan hormonal.</li>
+            </ul>
+
+            <p class="cf-note" style="margin-top: 15px; margin-bottom: 20px;">
+                <i class="fa-solid fa-calculator"></i> <strong>Catatan Metode Certainty Factor (CF):</strong> Sistem pakar ini menganalisis tingkat keyakinan dari indikasi gejala awal yang Anda rasakan untuk menghitung besarnya probabilitas kemungkinan kehamilan.
+            </p>
+            
+            <div style="text-align: center; margin-top: 15px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;" class="no-print">
+                <button type="button" onclick="bukaFormDiagnosa()" class="btn btn-primary" style="padding: 12px 28px; font-size: 1rem;">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Mulai Diagnosa Sekarang
+                </button>
+                <button type="button" onclick="bukaRiwayat()" class="btn btn-secondary" style="padding: 12px 20px; font-size: 1rem;">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Riwayat Diagnosa
+                </button>
+            </div>
+        </div>>
+
+        <div id="formPageView" class="card hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2><i class="fa-solid fa-user-doctor"></i> Form Identitas & Diagnosa</h2>
+                <button type="button" onclick="kembaliKeInfo()" class="btn btn-secondary no-print" style="padding: 6px 12px; font-size: 0.85rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Info
+                </button>
+            </div>
+            <p class="subtitle">Isi data diri dan pilih tingkat keyakinan untuk setiap gejala yang dirasakan:</p>
+
+            <form id="cfForm">
+                <!-- Input Identitas Pasien -->
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="userName"><i class="fa-solid fa-user"></i> Nama Lengkap Pasien <span class="required">*</span></label>
+                        <input type="text" id="userName" placeholder="Masukkan nama pasien" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userAge"><i class="fa-solid fa-calendar-days"></i> Usia (Tahun) <span class="required">*</span></label>
+                        <input type="number" id="userAge" min="12" max="65" placeholder="Contoh: 24" required>
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <h3><i class="fa-solid fa-clipboard-list"></i> Input Tingkat Keyakinan Gejala</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode</th>
+                                <th>Gejala yang Dirasakan</th>
+                                <th>CF Pakar</th>
+                                <th>Tingkat Keyakinan Anda (CF User)</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gejalaTableBody">
+                            <!-- Tabel gejala di-generate otomatis via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" onclick="resetForm()" class="btn btn-secondary">
+                        <i class="fa-solid fa-rotate-left"></i> Reset Form
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-calculator"></i> Hitung Diagnosa CF
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="historyCard" class="card hidden">
+            <div class="result-header">
+                <h2><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Data Diagnosa Pasien</h2>
+                <button type="button" onclick="tutupRiwayat()" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </button>
+            </div>
+            <p class="subtitle">Daftar riwayat perhitungan Certainty Factor yang tersimpan di perangkat ini:</p>
+            
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal & Waktu</th>
+                            <th>Nama Pasien</th>
+                            <th>Usia</th>
+                            <th>Persentase</th>
+                            <th>Tingkat Kepastian</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- Data riwayat diisi otomatis via JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="text-align: right; margin-top: 15px;">
+                <button type="button" onclick="hapusRiwayat()" class="btn" style="background-color: var(--danger); color: white; padding: 8px 16px; font-size: 0.85rem;">
+                    <i class="fa-solid fa-trash"></i> Hapus Semua Riwayat
+                </button>
+            </div>
+        </div>
+
+        <div id="resultCard" class="card result-card hidden">
+            <div class="result-header">
+                <h2><i class="fa-solid fa-square-poll-vertical"></i> Hasil Diagnosa & Laporan</h2>
+                <button onclick="window.print()" class="btn btn-print no-print">
+                    <i class="fa-solid fa-print"></i> Cetak Laporan
+                </button>
+            </div>
+
+            <div class="patient-info-box">
+                <div class="info-item">
+                    <span class="info-label">Nama Pasien:</span>
+                    <strong id="resName" class="info-val">-</strong>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Usia Pasien:</span>
+                    <strong id="resAge" class="info-val">-</strong>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Tanggal Diagnosa:</span>
+                    <strong id="resDate" class="info-val">-</strong>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Waktu Diagnosa:</span>
+                    <strong id="resTime" class="info-val">-</strong>
+                </div>
+            </div>
+
+            <div class="result-box">
+                <div class="cf-score-container">
+                    <span class="cf-label">Hasil Persentase Kepastian Kehamilan</span>
+                    <span id="percentageVal" class="cf-value">0%</span>
+                    <span id="statusBadge" class="badge">Belum Diagnosa</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="progressBar" class="progress-bar-fill" style="width: 0%;"></div>
+                </div>
+                <p id="cfDetailText" class="cf-detail">Nilai Kombinasi CF Akhir: <b>0.0000</b></p>
+            </div>
+
+            <div class="result-symptoms-section" style="margin-bottom: 20px;">
+                <h4 style="margin-bottom: 10px; color: #9d174d;"><i class="fa-solid fa-list-check"></i> Rincian Gejala & Perhitungan Pakar:</h4>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode</th>
+                                <th>Nama Gejala</th>
+                                <th>CF Pakar</th>
+                                <th>Keyakinan Anda</th>
+                                <th>CF (H,E)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultSymptomsBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="suggestion-box">
+                <h4><i class="fa-solid fa-notes-medical"></i> Rekomendasi / Saran Medis:</h4>
+                <p id="suggestionText">-</p>
+            </div>
+
+            <div class="accordion-section no-print">
+                <button type="button" class="accordion-btn" onclick="toggleBreakdown()">
+                    <span><i class="fa-solid fa-code-compare"></i> Rincian Perhitungan Matematika CF Step-by-Step</span>
+                    <i id="accordionIcon" class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div id="breakdownContent" class="breakdown-content hidden">
+                    <div id="logContent">-</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;" class="no-print">
+                <button type="button" onclick="resetForm()" class="btn btn-secondary">
+                    <i class="fa-solid fa-rotate-left"></i> Lakukan Diagnosa Ulang
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
